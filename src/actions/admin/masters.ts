@@ -23,7 +23,7 @@ export async function createMaster(formData: z.infer<typeof MasterSchema>) {
 
         const validation = MasterSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         await prisma.master.create({
@@ -48,7 +48,7 @@ export async function updateMaster(id: string, formData: z.infer<typeof MasterSc
 
         const validation = MasterSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         await prisma.master.update({

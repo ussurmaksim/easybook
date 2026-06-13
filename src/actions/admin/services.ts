@@ -22,7 +22,7 @@ export async function createService(formData: z.infer<typeof ServiceSchema>) {
 
         const validation = ServiceSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         await prisma.service.create({
@@ -48,7 +48,7 @@ export async function updateService(id: string, formData: z.infer<typeof Service
 
         const validation = ServiceSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         await prisma.service.update({

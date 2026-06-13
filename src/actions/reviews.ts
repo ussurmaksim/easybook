@@ -27,7 +27,7 @@ export async function createReview(formData: z.infer<typeof ReviewSchema>) {
 
         const validation = ReviewSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         // ✅ ПРОВЕРКА 1: есть ли завершённая запись на эту услугу

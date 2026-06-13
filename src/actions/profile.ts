@@ -32,8 +32,7 @@ export async function updateProfile(formData: z.infer<typeof ProfileSchema>) {
 
         if (!validation.success) {
             // ✅ Безопасное получение первой ошибки
-            const firstError = validation.error.errors?.[0]
-            return { error: firstError?.message || "Ошибка валидации данных" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         // Проверка: не занят ли email другим пользователем
@@ -80,8 +79,7 @@ export async function changePassword(formData: z.infer<typeof PasswordSchema>) {
         const validation = PasswordSchema.safeParse(formData)
 
         if (!validation.success) {
-            const firstError = validation.error.errors?.[0]
-            return { error: firstError?.message || "Ошибка валидации пароля" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         if (formData.newPassword !== formData.confirmPassword) {

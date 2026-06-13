@@ -21,7 +21,7 @@ export async function createBooking(formData: z.infer<typeof BookingSchema>) {
     try {
         const validation = BookingSchema.safeParse(formData);
         if (!validation.success) {
-            return { error: validation.error.errors[0].message };
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         const { serviceId, masterId, date, timeSlot, name, phone, email, comment } = validation.data;

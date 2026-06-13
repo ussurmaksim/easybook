@@ -95,7 +95,7 @@ export async function changeUserPassword(id: string, formData: z.infer<typeof Pa
 
         const validation = PasswordSchema.safeParse(formData)
         if (!validation.success) {
-            return { error: validation.error.errors?.[0]?.message || "Ошибка валидации" }
+            return { error: validation.error.issues?.[0]?.message || "Ошибка валидации" }
         }
 
         const hashedPassword = await bcrypt.hash(formData.password, 10)
