@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model User {
+  id        String    @id @default(cuid())
+  name      String?
+  email     String    @unique
+  password  String?
+  phone     String?
+  role      Role      @default(USER)
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  reviews   Review[]
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  price       Int
+  duration    Int
+  bookings    Booking[]
+  reviews     Review[]
+  masters     Master[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Master {
+  id             String    @id @default(cuid())
+  name           String
+  specialization String?
+  description    String?
+  photoUrl       String?
+  isActive       Boolean   @default(true)
+  bookings       Booking[]
+  services       Service[] // ✅ Связь многие-ко-многим
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Booking {
+  id     String   @id @default(cuid())
+  date   DateTime
+  status Status   @default(PENDING)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  masterId String?
+  master   Master? @relation(fields: [masterId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int // 1-5 звёзд
+  comment    String?
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  serviceId  String?
+  service    Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  isApproved Boolean  @default(false) // Модерация админом
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId])
+  @@index([serviceId])
+  @@index([isApproved])
+}
