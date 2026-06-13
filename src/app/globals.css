@@ -1,26 +1,112 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* 🔧 ВАЖНО: Цвета должны быть в @theme блоке */
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  /* Розовая пастельная палитра */
+  --color-background: hsl(0 100% 99%);
+  --color-foreground: hsl(16 13% 16%);
+
+  --color-card: hsl(0 100% 99%);
+  --color-card-foreground: hsl(16 13% 16%);
+
+  --color-popover: hsl(0 100% 99%);
+  --color-popover-foreground: hsl(16 13% 16%);
+
+  /* Primary - розовый акцент */
+  --color-primary: hsl(340 82% 71%);
+  --color-primary-foreground: hsl(0 100% 100%);
+
+  /* Secondary */
+  --color-secondary: hsl(340 93% 97%);
+  --color-secondary-foreground: hsl(340 76% 35%);
+
+  /* Muted */
+  --color-muted: hsl(340 93% 97%);
+  --color-muted-foreground: hsl(340 20% 50%);
+
+  /* Accent */
+  --color-accent: hsl(330 88% 82%);
+  --color-accent-foreground: hsl(0 100% 100%);
+
+  /* Destructive */
+  --color-destructive: hsl(3 89% 71%);
+
+  /* Border & Input */
+  --color-border: hsl(340 93% 95%);
+  --color-input: hsl(340 93% 95%);
+  --color-ring: hsl(340 82% 71%);
+
+  /* Charts */
+  --color-chart-1: hsl(340 82% 71%);
+  --color-chart-2: hsl(330 88% 82%);
+  --color-chart-3: hsl(340 93% 97%);
+  --color-chart-4: hsl(340 20% 50%);
+  --color-chart-5: hsl(16 13% 16%);
+
+  /* Sidebar */
+  --color-sidebar: hsl(0 100% 99%);
+  --color-sidebar-foreground: hsl(16 13% 16%);
+  --color-sidebar-primary: hsl(340 82% 71%);
+  --color-sidebar-primary-foreground: hsl(0 100% 100%);
+  --color-sidebar-accent: hsl(340 93% 97%);
+  --color-sidebar-accent-foreground: hsl(340 76% 35%);
+  --color-sidebar-border: hsl(340 93% 95%);
+  --color-sidebar-ring: hsl(340 82% 71%);
+
+  /* Radius */
+  --radius-sm: calc(0.5rem * 0.6);
+  --radius-md: calc(0.5rem * 0.8);
+  --radius-lg: 0.5rem;
+  --radius-xl: calc(0.5rem * 1.4);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 0 100% 99%;
+  --foreground: 16 13% 16%;
+  --primary: 340 82% 71%;
+  --primary-foreground: 0 100% 100%;
+  --secondary: 340 93% 97%;
+  --secondary-foreground: 340 76% 35%;
+  --muted: 340 93% 97%;
+  --muted-foreground: 340 20% 50%;
+  --accent: 330 88% 82%;
+  --accent-foreground: 0 100% 100%;
+  --destructive: 3 89% 71%;
+  --border: 340 93% 95%;
+  --input: 340 93% 95%;
+  --ring: 340 82% 71%;
+  --radius: 0.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --background: 16 13% 10%;
+  --foreground: 0 0% 95%;
+  --primary: 340 82% 71%;
+  --primary-foreground: 0 100% 100%;
+  --secondary: 340 50% 20%;
+  --secondary-foreground: 340 82% 71%;
+  --muted: 340 30% 18%;
+  --muted-foreground: 340 20% 65%;
+  --accent: 330 88% 82%;
+  --accent-foreground: 0 100% 100%;
+  --destructive: 3 89% 60%;
+  --border: 340 30% 20%;
+  --input: 340 30% 20%;
+  --ring: 340 82% 71%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
 }
