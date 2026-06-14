@@ -60,19 +60,19 @@ export default async function AdminDashboardPage() {
     return (
         <div className="container mx-auto px-4 py-12">
             {/* Заголовок */}
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold">Панель администратора</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold">Панель администратора</h1>
                     <p className="text-muted-foreground mt-1">
                         Добро пожаловать, {session.user.name || session.user.email}
                     </p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                     <Link href="/dashboard">
-                        <Button variant="outline">👤 Личный кабинет</Button>
+                        <Button variant="outline" className="w-full sm:w-auto">👤 Личный кабинет</Button>
                     </Link>
                     <Link href="/">
-                        <Button variant="ghost">🏠 На сайт</Button>
+                        <Button variant="ghost" className="w-full sm:w-auto">🏠 На сайт</Button>
                     </Link>
                 </div>
             </div>

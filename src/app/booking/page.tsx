@@ -1,12 +1,15 @@
-import { auth } from "@/lib/auth";
+import { getActiveMasters } from "@/actions/masters";
 import BookingForm from "@/components/booking/BookingForm";
+import { auth } from "@/lib/auth";
 
 export default async function BookingPage() {
     const session = await auth();
+    const masters = await getActiveMasters();
 
     return (
-        <div className="min-h-screen bg-background">
-            <BookingForm user={session?.user} />
-        </div>
+        <BookingForm
+            user={session?.user}
+            masters={masters}
+        />
     );
 }

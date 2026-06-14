@@ -23,7 +23,7 @@ export default function ContactPage() {
                             <span className="text-2xl">📍</span>
                             <div>
                                 <p className="font-medium">Адрес</p>
-                                <p className="text-muted-foreground">г. Москва, ул. Примерная, д. 123</p>
+                                <p className="text-muted-foreground">г. Тверь, ул. Андрея Дементьева, 30</p>
                             </div>
                         </div>
 
@@ -31,8 +31,8 @@ export default function ContactPage() {
                             <span className="text-2xl">📱</span>
                             <div>
                                 <p className="font-medium">Телефон</p>
-                                <Link href="tel:+79991234567" className="text-primary hover:underline">
-                                    +7 (999) 123-45-67
+                                <Link href="tel:+79106493664" className="text-primary hover:underline">
+                                    +7 (910) 649-36-64
                                 </Link>
                             </div>
                         </div>
@@ -52,14 +52,6 @@ export default function ContactPage() {
                             <div>
                                 <p className="font-medium">Режим работы</p>
                                 <p className="text-muted-foreground">Ежедневно с 9:00 до 21:00</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <span className="text-2xl"></span>
-                            <div>
-                                <p className="font-medium">Метро</p>
-                                <p className="text-muted-foreground">5 минут от м. Примерная</p>
                             </div>
                         </div>
                     </CardContent>

@@ -13,7 +13,7 @@ export default function Footer() {
 
                     <div>
                         <h3 className="font-bold mb-4">Контакты</h3>
-                        <p className="text-muted-foreground">📞 +7 (999) 123-45-67</p>
+                        <p className="text-muted-foreground">📞 +7 (910) 649-36-64</p>
                         <p className="text-muted-foreground">📧 info@easybook.ru</p>
                         <p className="text-muted-foreground">⏰ Ежедневно 9:00 - 21:00</p>
                     </div>
@@ -21,7 +21,7 @@ export default function Footer() {
                     <div>
                         <h3 className="font-bold mb-4">Адрес</h3>
                         <p className="text-muted-foreground">
-                            📍 г. Москва, ул. Примерная, д. 123
+                            📍 г. Тверь, ул. Андрея Дементьева, 30
                         </p>
                     </div>
                 </div>

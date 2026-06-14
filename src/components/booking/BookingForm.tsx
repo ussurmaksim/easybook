@@ -15,11 +15,12 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createBooking } from "@/actions/booking";
 
-const masters = [
-    { id: "1", name: "Анна Иванова", specialization: "Парикмахер-стилист" },
-    { id: "2", name: "Мария Петрова", specialization: "Мастер маникюра" },
-    { id: "3", name: "Елена Сидорова", specialization: "Колорист" },
-];
+// ✅ Тип мастера из Prisma
+interface Master {
+    id: string;
+    name: string;
+    specialization: string | null;
+}
 
 const timeSlots = [
     "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -28,15 +29,15 @@ const timeSlots = [
     "18:00", "18:30", "19:00", "19:30", "20:00",
 ];
 
-
 interface BookingFormProps {
     user?: {
         name?: string | null;
         email?: string | null;
     } | null;
+    masters: Master[]; // ✅ Передаем мастеров из БД
 }
 
-export default function BookingForm({ user }: BookingFormProps) {
+export default function BookingForm({ user, masters }: BookingFormProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const serviceId = searchParams.get("serviceId") || "";
@@ -48,7 +49,6 @@ export default function BookingForm({ user }: BookingFormProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // ✅ Предзаполняем, если пользователь авторизован
     const [formData, setFormData] = useState({
         name: user?.name || "",
         phone: "",
@@ -123,7 +123,6 @@ export default function BookingForm({ user }: BookingFormProps) {
                         </div>
                     )}
 
-                    {/* Шаг 1 и 2 остаются без изменений... */}
                     {step === 1 && (
                         <div className="space-y-4">
                             <Select value={master} onValueChange={setMaster}>
@@ -131,11 +130,17 @@ export default function BookingForm({ user }: BookingFormProps) {
                                     <SelectValue placeholder="Выберите мастера" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {masters.map((m) => (
-                                        <SelectItem key={m.id} value={m.id}>
-                                            {m.name} — {m.specialization}
+                                    {masters.length > 0 ? (
+                                        masters.map((m) => (
+                                            <SelectItem key={m.id} value={m.id}>
+                                                {m.name} {m.specialization && `— ${m.specialization}`}
+                                            </SelectItem>
+                                        ))
+                                    ) : (
+                                        <SelectItem value="none" disabled>
+                                            Мастера не найдены
                                         </SelectItem>
-                                    ))}
+                                    )}
                                 </SelectContent>
                             </Select>
                             <Button
@@ -148,6 +153,7 @@ export default function BookingForm({ user }: BookingFormProps) {
                         </div>
                     )}
 
+                    {/* Остальные шаги без изменений... */}
                     {step === 2 && (
                         <div className="space-y-4">
                             <div className="space-y-2">
@@ -207,7 +213,6 @@ export default function BookingForm({ user }: BookingFormProps) {
                         </div>
                     )}
 
-                    {/* Шаг 3: Данные клиента (обновлённый) */}
                     {step === 3 && (
                         <div className="space-y-4">
                             <div className="space-y-2">
